@@ -21,12 +21,14 @@ const PokemonList = () => {
       }, []);
 
   return (
-    <Container className="mt-4 mb-4">
-      <Row className="gap-5">
+    <>
         <NavBar/>
-        <CarouselComponent pokemons={pokemons}/>
-        </Row>
-    </Container>
+        <Container className="mt-4 mb-4">
+        <Row className="gap-5">
+            <CarouselComponent pokemons={pokemons}/>
+            </Row>
+        </Container>
+    </>
   )
 }
 

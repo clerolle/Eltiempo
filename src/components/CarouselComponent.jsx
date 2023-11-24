@@ -4,8 +4,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 import Detail from '@/modals/detail/Details';
-// import Detail from '../../Modals/Detail';
-// import ExampleCarouselImage from 'components/ExampleCarouselImage';
 
 function CarouselComponent({pokemons}) {
     const [show, setShow] = useState(false);
