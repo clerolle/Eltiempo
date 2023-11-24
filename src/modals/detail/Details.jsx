@@ -30,13 +30,21 @@ function Detail({ show, handleClose, pokemon, urlPokemon }) {
         </ul>
       </Modal.Body>
       <Modal.Body>
-        <h3>Moves</h3>
+        <h3>Base experience</h3>
+        <ul> 
+        <li>{detail?.base_experience}</li>
+        </ul>
+      </Modal.Body>
+      {detail.held_items?.length > 0 && 
+      <Modal.Body>
+        <h3>Held items</h3>
         <ul>
-        {detail.moves?.map(x=> 
-        <li>{x.move.name}</li>
+        {detail.held_items?.map(x=> 
+        <li>{x.item?.name}</li>
           )}
         </ul>
       </Modal.Body>
+      }
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
