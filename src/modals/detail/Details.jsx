@@ -20,9 +20,9 @@ function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched })
           let pokeCatched = JSON.parse(localStorage.getItem("pokemons"));
           console.log(pokeCatched);
           console.log(data.name)
-          if(pokeCatched.catchedPoke?.includes(data.name)){
+          if (pokeCatched.catchedPoke?.includes(data.name)) {
             setStatePoke(true);
-          }else{
+          } else {
             setStatePoke(false);
           }
         });
@@ -30,59 +30,60 @@ function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched })
   }, [show, urlPokemon]);
 
 
-  const catchedPokemon =() => {
+  const catchedPokemon = () => {
     setCatched([...catched, detail.name])
-    let catc = {catchedPoke: catched}; 
+    let catc = { catchedPoke: catched };
     localStorage.setItem("pokemons", JSON.stringify(catc))
   }
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{detail?.name}</Modal.Title>
+        <Modal.Title className="title">{detail?.name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <img
           src={detail.sprites?.front_default}
-          alt={pokemon.name}
-          width={100}
+          alt={detail?.name}
+          width={50}
           height={100}
+          className="img-center"
         />
       </Modal.Body>
-      <Modal.Body>
-        <h4 className="title-text">Abilities</h4>
-        <Row>
-        {detail?.abilities?.map(x=> 
-        <li>{x.ability?.name}</li>
-          )}
+      <Container>
+        <Row className="attributes mb-3">
+          <Col>
+            <h6 className="title-text">Abilities</h6>
+            {detail?.abilities?.map(x =>
+              <li>{x.ability?.name}</li>
+            )}
+          </Col>
+          <Col>
+            <h6 className="title-text">Base experience</h6>
+            <li>{detail?.base_experience}</li>
+          </Col>
         </Row>
-      </Modal.Body>
-      <Modal.Body>
-        <h4>Base experience</h4>
-        <ul> 
-        <li>{detail?.base_experience}</li>
-        </ul>
-      </Modal.Body>
-      <Modal.Body>
-        <h4>State</h4>
-        {statePoke ? "catched" : "uncatched"}
-      </Modal.Body>
-      {detail.held_items?.length > 0 && 
-      <Modal.Body>
-        <h3>Held items</h3>
-        <ul>
-        {detail.held_items?.map(x=> 
-        <li>{x.item?.name}</li>
-          )}
-        </ul>
-      </Modal.Body>
-      }
+        <Row className="mb-3">
+          <Col md="6">
+            <h6 className="title-text">State</h6>
+            {statePoke ? "catched" : "uncatched"}
+          </Col>          
+          {detail.held_items?.length > 0 &&
+            <Col md="6">
+              <h6 className="title-text">Held items</h6>
+                {detail.held_items?.map(x =>
+                  <li>{x.item?.name}</li>
+                )}
+            </Col>
+          }
+        </Row>
+      </Container>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
         <Button variant="primary" onClick={catchedPokemon}>
-          catched
+          Catch
         </Button>
       </Modal.Footer>
     </Modal>
