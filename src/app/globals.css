@@ -100,6 +100,12 @@ a {
   text-decoration: none;
 }
 
+.title-text{
+  color: #202020;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

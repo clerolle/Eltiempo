@@ -1,12 +1,24 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function NavBar() {
+function NavBar({setPokemons}) {
+  const [poke, setPoke] = useState("")
+  
+  const PokemonTypeHandler=(poke)=>{
+    console.log(poke)
+    fetch(`https://pokeapi.co/api/v2/type/${poke}`)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setPokemons(data.pokemon);
+          });
+  }
+  
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -26,8 +38,10 @@ function NavBar() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              value={poke}
+              onChange={(e)=>setPoke(e.target.value)}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success" onClick={()=>PokemonTypeHandler(poke)}>Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>

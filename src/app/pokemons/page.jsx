@@ -10,6 +10,7 @@ import Container from "react-bootstrap/esm/Container.js";
 const PokemonList = () => {
     const [data, setData] = useState([]);
     const [pokemons, setPokemons] = useState([]);
+    const [ catched, setCatched] = useState([]);
 
     useEffect(() => {
         fetch("https://pokeapi.co/api/v2/pokemon/")
@@ -22,10 +23,10 @@ const PokemonList = () => {
 
   return (
     <>
-        <NavBar/>
+        <NavBar setPokemons={setPokemons}/>
         <Container className="mt-4 mb-4">
         <Row className="gap-5">
-            <CarouselComponent pokemons={pokemons}/>
+            <CarouselComponent pokemons={pokemons} setCatched={setCatched} catched={catched}/>
             </Row>
         </Container>
     </>

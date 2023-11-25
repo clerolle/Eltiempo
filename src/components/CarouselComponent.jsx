@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 import Detail from '@/modals/detail/Details';
 
-function CarouselComponent({pokemons}) {
+function CarouselComponent({pokemons, setCatched, catched}) {
     const [show, setShow] = useState(false);
     const [url, setUrl] = useState("")
     const handleClose = () => setShow(false);
@@ -18,22 +18,25 @@ function CarouselComponent({pokemons}) {
                 <Carousel.Item interval={1500}>
                     <img
                         className="d-block w-100"
-                        src="/poke.svg"
+                        src="/poke.jpeg"
                         height={300}
                         width={100}
                         alt="Pokemon"
                     />
                     <Carousel.Caption>
-                        <h3 style={{color: "white"}}>{pokemon.name}</h3>
-                        <Button onClick={()=>handleShow(pokemon.url)} variant="secondary">
-                            <p>{pokemon.url}</p>
+                        <h3 style={{color: "white"}}>{pokemon.name ? pokemon.name : pokemon.pokemon.name}</h3>
+                        <Button onClick={()=>handleShow(pokemon.url ? pokemon.url : pokemon.pokemon.url)} variant="secondary">
+                            <p>details</p>
                         </Button>
                     </Carousel.Caption>
                     <Detail
+                        key={pokemon.name}
                         show={show}
                         handleClose={handleClose} 
                         pokemon={pokemon} 
                         urlPokemon={url}
+                        setCatched={setCatched}
+                        catched={catched}
                     />
                 </Carousel.Item>
                 ))}
