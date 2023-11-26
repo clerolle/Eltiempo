@@ -11,6 +11,7 @@ const PokemonList = () => {
     const [data, setData] = useState([]);
     const [pokemons, setPokemons] = useState([]);
     const [ catched, setCatched] = useState([]);
+    const [ watched, setWatched] = useState([]);
 
     useEffect(() => {
         fetch("https://pokeapi.co/api/v2/pokemon/")
@@ -26,7 +27,7 @@ const PokemonList = () => {
         <NavBar setPokemons={setPokemons}/>
         <Container className="mt-4 mb-4">
         <Row className="gap-5">
-            <CarouselComponent pokemons={pokemons} setCatched={setCatched} catched={catched}/>
+            <CarouselComponent pokemons={pokemons} setCatched={setCatched} catched={catched} watched={watched} setWatched={setWatched}/>
             </Row>
         </Container>
     </>

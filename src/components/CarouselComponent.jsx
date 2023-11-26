@@ -5,17 +5,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 import Detail from '@/modals/detail/Details';
 
-function CarouselComponent({pokemons, setCatched, catched}) {
+function CarouselComponent({pokemons, setCatched, catched, watched, setWatched}) {
     const [show, setShow] = useState(false);
     const [url, setUrl] = useState("")
     const handleClose = () => setShow(false);
     const handleShow = (url) => {setShow(true); setUrl(url);}
+
     return (
         <div style={{ display: 'block', width: 700, padding: 30, justifyContent: 'center', alignItems: 'center', background: "grey" }}>
             <h4 className='text-center' style={{color: "white"}}>SELECT YOUR POKEMON</h4>
             <Carousel>
                 {pokemons?.map((pokemon, index)=>(
-                <Carousel.Item interval={1500}>
+                <Carousel.Item interval={10000}>
                     <img
                         className="d-block w-100"
                         src="/poke.jpeg"
@@ -38,6 +39,8 @@ function CarouselComponent({pokemons, setCatched, catched}) {
                     urlPokemon={url}
                     setCatched={setCatched}
                     catched={catched}
+                    watched={watched} 
+                    setWatched={setWatched}
                 />
             </Carousel>
         </div>

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -6,10 +7,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "@/app/globals.css";
 
-function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched }) {
+function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched, watched, setWatched }) {
 
   const [detail, setDetail] = useState([]);
   const [statePoke, setStatePoke] = useState(false);
+  const [watchedPoke, setWatchedPoke] = useState(false);
 
   useEffect(() => {
     if (show) {
@@ -17,18 +19,28 @@ function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched })
         .then((res) => res.json())
         .then((data) => {
           setDetail(data);
+          setWatched([...watched, data.name]);
           let pokeCatched = JSON.parse(localStorage.getItem("pokemons"));
-          console.log(pokeCatched);
-          console.log(data.name)
-          if (pokeCatched.catchedPoke?.includes(data.name)) {
+          if (pokeCatched?.catchedPoke?.includes(data.name)) {
             setStatePoke(true);
           } else {
             setStatePoke(false);
+          }
+          let pokeWatched = JSON.parse(localStorage.getItem("pokemonswatched"));
+          if (pokeWatched?.watchedPoke?.includes(data.name)) {
+            setWatchedPoke(true);
+          } else {
+            setWatchedPoke(false);
           }
         });
     }
   }, [show, urlPokemon]);
 
+  const watchedPokemon = () => {
+    let watc = { watchedPoke: watched };
+    console.log(watc);
+    localStorage.setItem("pokemonswatched", JSON.stringify(watc))
+  }
 
   const catchedPokemon = () => {
     setCatched([...catched, detail.name])
@@ -63,23 +75,29 @@ function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched })
             <li>{detail?.base_experience}</li>
           </Col>
         </Row>
-        <Row className="mb-3">
+        <Row className="attributes mb-3">
           <Col md="6">
             <h6 className="title-text">State</h6>
-            {statePoke ? "catched" : "uncatched"}
-          </Col>          
+            <li>{statePoke ? "catched" : "uncatched"}</li>
+          </Col>
+          <Col md="6">
+            <h6 className="title-text">Watched</h6>
+            <li>{watchedPoke ? "Yes" : "No"}</li>
+          </Col>
+        </Row>
+        <Row className="attributes mb-3">
           {detail.held_items?.length > 0 &&
             <Col md="6">
               <h6 className="title-text">Held items</h6>
-                {detail.held_items?.map(x =>
-                  <li>{x.item?.name}</li>
-                )}
+              {detail.held_items?.map(x =>
+                <li>{x.item?.name}</li>
+              )}
             </Col>
           }
         </Row>
       </Container>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={() => { handleClose(); watchedPokemon(); }}>
           Close
         </Button>
         <Button variant="primary" onClick={catchedPokemon}>
