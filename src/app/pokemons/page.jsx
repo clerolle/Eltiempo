@@ -6,8 +6,19 @@ import { Context } from '@/context';
 
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/esm/Container.js";
+import { useDispatch, useSelector } from 'react-redux';
+import { getInfo } from '@/redux/features/info/infoSlice';
 
 const PokemonList = () => {
+    
+    // Redux
+    const dispatch = useDispatch();
+
+    const inf = useSelector((state) => state);
+    console.log(inf);
+
+
+    //local state
     const [data, setData] = useState([]);
     const [pokemons, setPokemons] = useState([]);
     const [ catched, setCatched] = useState([]);
@@ -17,6 +28,8 @@ const PokemonList = () => {
         fetch("https://pokeapi.co/api/v2/pokemon/")
           .then((res) => res.json())
           .then((data) => {
+            dispatch(getInfo(data.results));
+            console.log(data.results);
             setData(data);
             setPokemons(data.results);
           });
