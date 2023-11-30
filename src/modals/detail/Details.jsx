@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "@/app/globals.css";
 
+
 function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched, watched, setWatched }) {
 
   const [detail, setDetail] = useState([]);
