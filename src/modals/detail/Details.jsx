@@ -63,7 +63,7 @@ function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched, w
         />
       </Modal.Body>
       <Container>
-        <Row className="attributes mb-3">
+        <Row className="attributes mb-3 text-dark">
           <Col>
             <h6 className="title-text">Abilities</h6>
             {detail?.abilities?.map(x =>
@@ -75,7 +75,7 @@ function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched, w
             <li>{detail?.base_experience}</li>
           </Col>
         </Row>
-        <Row className="attributes mb-3">
+        <Row className="attributes mb-3 text-dark">
           <Col md="6">
             <h6 className="title-text">State</h6>
             <li>{statePoke ? "catched" : "uncatched"}</li>
@@ -85,7 +85,7 @@ function Detail({ show, handleClose, pokemon, urlPokemon, setCatched, catched, w
             <li>{watchedPoke ? "Yes" : "No"}</li>
           </Col>
         </Row>
-        <Row className="attributes mb-3">
+        <Row className="attributes mb-3 text-dark">
           {detail.held_items?.length > 0 &&
             <Col md="6">
               <h6 className="title-text">Held items</h6>

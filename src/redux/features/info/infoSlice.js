@@ -11,9 +11,12 @@ export const infoSlice = createSlice({
     getInfo: (state, action) => {
       state.pokemons  = action.payload;
     },
+    searchInfo: (state, action) => {
+      state.pokemons  = action.payload;
+    },
   },
 })
 
-export const { getInfo } = infoSlice.actions
+export const { getInfo, searchInfo } = infoSlice.actions
 
 export default infoSlice.reducer

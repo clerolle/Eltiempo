@@ -14,10 +14,6 @@ const PokemonList = () => {
     // Redux
     const dispatch = useDispatch();
 
-    const inf = useSelector((state) => state);
-    console.log(inf);
-
-
     //local state
     const [data, setData] = useState([]);
     const [pokemons, setPokemons] = useState([]);
@@ -29,7 +25,6 @@ const PokemonList = () => {
           .then((res) => res.json())
           .then((data) => {
             dispatch(getInfo(data.results));
-            console.log(data.results);
             setData(data);
             setPokemons(data.results);
           });

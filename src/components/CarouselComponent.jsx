@@ -1,13 +1,21 @@
 "use client";
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 import Detail from '@/modals/detail/Details';
 
 function CarouselComponent({pokemons, setCatched, catched, watched, setWatched}) {
+
+    // Redux state extraction
+    const info = useSelector(state => state.info);
+
+    // Local state
     const [show, setShow] = useState(false);
     const [url, setUrl] = useState("")
+
+
     const handleClose = () => setShow(false);
     const handleShow = (url) => {setShow(true); setUrl(url);}
 
@@ -15,7 +23,7 @@ function CarouselComponent({pokemons, setCatched, catched, watched, setWatched})
         <div style={{ display: 'block', width: 700, padding: 30, justifyContent: 'center', alignItems: 'center', background: "grey" }}>
             <h4 className='text-center' style={{color: "white"}}>SELECT YOUR POKEMON</h4>
             <Carousel>
-                {pokemons?.map((pokemon, index)=>(
+                {info.pokemons?.map((pokemon, index)=>(
                 <Carousel.Item interval={10000}>
                     <img
                         className="d-block w-100"

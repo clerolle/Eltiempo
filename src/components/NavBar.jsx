@@ -1,21 +1,28 @@
 "use client";
+import { searchInfo } from '@/redux/features/info/infoSlice';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useDispatch} from 'react-redux';
 
 function NavBar({setPokemons}) {
+
+  //  Dispatch instance
+  const dispatch = useDispatch()
+
+  // Local state
   const [poke, setPoke] = useState("")
   
   const PokemonTypeHandler=(poke)=>{
-    console.log(poke)
+
     fetch(`https://pokeapi.co/api/v2/type/${poke}`)
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             setPokemons(data.pokemon);
+            dispatch(searchInfo(data.pokemon));
           });
   }
   
